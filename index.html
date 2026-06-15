@@ -228,7 +228,7 @@
   <div class="container">
     <h2>Get a Free Quote</h2>
     <p>Contact us today for a free, no-obligation quote for pest control services in Guelph.</p>
-    <form class="contact-form" name="contact" method="POST" netlify netlify-honeypot="bot-field">
+    <form class="contact-form" name="contact" method="POST" action="/.netlify/functions/contact">
       <input type="hidden" name="form-name" value="contact">
       <p hidden><label>Don't fill this out: <input name="bot-field"></label></p>
       <div class="form-row">
