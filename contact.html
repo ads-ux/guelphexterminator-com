@@ -65,7 +65,10 @@
     </div>
     <div class="contact-form-wrap">
       <h2>Request a Free Quote</h2>
-      <form class="contact-form" name="contact" method="POST" netlify netlify-honeypot="bot-field">
+<div id="success-msg" style="display:none;background:#d4edda;border:1px solid #c3e6cb;color:#155724;padding:16px;border-radius:6px;margin-bottom:16px;">
+  <strong>Thanks! We received your request.</strong> We'll be in touch within a few hours.
+</div>
+      <form class="contact-form" name="contact" method="POST" action="/.netlify/functions/contact">
         <input type="hidden" name="form-name" value="contact">
         <p hidden><label>Don't fill this out: <input name="bot-field"></label></p>
         <div class="form-row">
@@ -103,6 +106,12 @@
     </div>
   </div>
 </footer>
-<script>function toggleNav() { document.querySelector('.nav-links').classList.toggle('open'); }</script>
+<script>
+function toggleNav() { document.querySelector('.nav-links').classList.toggle('open'); }
+if (new URLSearchParams(location.search).get('submitted') === '1') {
+  document.getElementById('success-msg').style.display = 'block';
+  window.scrollTo(0, document.getElementById('success-msg').offsetTop - 80);
+}
+</script>
 </body>
 </html>
