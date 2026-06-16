@@ -23,7 +23,7 @@
   </nav>
 </header>
 
-<section class="page-hero">
+<section class="page-hero"
   <div class="container">
     <h1>Contact Guelph Exterminator</h1>
     <p>Get your free, no-obligation quote today. We respond within 24 hours.</p>
@@ -68,7 +68,7 @@
 <div id="success-msg" style="display:none;background:#d4edda;border:1px solid #c3e6cb;color:#155724;padding:16px;border-radius:6px;margin-bottom:16px;">
   <strong>Thanks! We received your request.</strong> We'll be in touch within a few hours.
 </div>
-      <form class="contact-form" name="contact" method="POST" action="/.netlify/functions/contact">
+            <form class="contact-form" name="contact" method="POST" netlify netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="contact">
         <p hidden><label>Don't fill this out: <input name="bot-field"></label></p>
         <div class="form-row">
