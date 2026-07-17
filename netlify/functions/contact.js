@@ -2,7 +2,7 @@ exports.handler = async function(event) {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
-  const RESEND_KEY = 're_7bTWREUo_P1cRtEgUHB8hyXtyfCXWQ3io';
+      const RESEND_KEY = process.env.RESEND_API_KEY;
   const params = new URLSearchParams(event.body);
   if (params.get('bot-field')) {
     return { statusCode: 302, headers: { Location: '/contact.html?submitted=1' } };
