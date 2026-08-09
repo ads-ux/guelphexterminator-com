@@ -2,18 +2,47 @@ exports.handler = async function(event) {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
-      const RESEND_KEY = process.env.RESEND_API_KEY;
+  const RESEND_KEY = process.env.RESEND_API_KEY;
+  const HCAPTCHA_SECRET = process.env.HCAPTCHA_SECRET;
   const params = new URLSearchParams(event.body);
+
+  // Honeypot -- kept as a first, cheap filter.
   if (params.get('bot-field')) {
     return { statusCode: 302, headers: { Location: '/contact.html?submitted=1' } };
   }
+
+  // hCaptcha -- the real spam gate. Bots that POST directly to this endpoint
+  // (skipping the browser entirely, as the recent spam did) cannot produce a
+  // valid token, so they get silently redirected instead of emailed.
+  if (HCAPTCHA_SECRET) {
+    const token = params.get('h-captcha-response');
+    if (!token) {
+      return { statusCode: 302, headers: { Location: '/contact.html?submitted=1' } };
+    }
+    try {
+      const verifyRes = await fetch('https://hcaptcha.com/siteverify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ secret: HCAPTCHA_SECRET, response: token })
+      });
+      const verifyData = await verifyRes.json();
+      if (!verifyData.success) {
+        console.log('hCaptcha failed:', JSON.stringify(verifyData));
+        return { statusCode: 302, headers: { Location: '/contact.html?submitted=1' } };
+      }
+    } catch (e) {
+      console.log('hCaptcha verify error:', e.message);
+      return { statusCode: 302, headers: { Location: '/contact.html?submitted=1' } };
+    }
+  }
+
   const name    = params.get('name') || '';
   const phone   = params.get('phone') || '';
   const email   = params.get('email') || '';
   const address = params.get('address') || '';
   const service = params.get('service') || 'Not specified';
   const message = params.get('message') || '';
-  const html = '<h2>New Quote Request — Guelph Exterminator</h2><p><strong>Name:</strong> ' + name + '</p><p><strong>Phone:</strong> ' + phone + '</p><p><strong>Email:</strong> ' + email + '</p><p><strong>Address:</strong> ' + address + '</p><p><strong>Service:</strong> ' + service + '</p><p><strong>Message:</strong><br>' + message + '</p>';
+  const html = '<h2>New Quote Request Guelph Exterminator</h2><p><strong>Name:</strong> ' + name + '</p><p><strong>Phone:</strong> ' + phone + '</p><p><strong>Email:</strong> ' + email + '</p><p><strong>Address:</strong> ' + address + '</p><p><strong>Service:</strong> ' + service + '</p><p><strong>Message:</strong><br>' + message + '</p>';
   try {
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -25,7 +54,7 @@ exports.handler = async function(event) {
         from: 'leads@overhauled.ai',
         to: ['ads@vrume.com'],
         reply_to: email || undefined,
-        subject: 'New Quote Request from ' + name + ' — Guelph Exterminator',
+        subject: 'New Quote Request from ' + name + ' Guelph Exterminator',
         html: html
       })
     });
