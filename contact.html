@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us | Guelph Exterminator</title>
@@ -99,7 +100,7 @@ src="https://www.facebook.com/tr?id=2194207214734752&ev=PageView&noscript=1"/></
 <div id="success-msg" style="display:none;background:#d4edda;border:1px solid #c3e6cb;color:#155724;padding:16px;border-radius:6px;margin-bottom:16px;">
   <strong>Thanks! We received your request.</strong> We'll be in touch within a few hours.
 </div>
-            <form class="contact-form" name="contact" method="POST" netlify netlify-honeypot="bot-field">
+            <form class="contact-form" name="contact" method="POST" netlify netlify-honeypot="bot-field" data-netlify-recaptcha="true">
         <input type="hidden" name="form-name" value="contact">
         <p hidden><label>Don't fill this out: <input name="bot-field"></label></p>
         <div class="form-row">
@@ -110,7 +111,8 @@ src="https://www.facebook.com/tr?id=2194207214734752&ev=PageView&noscript=1"/></
         <label>What do you need?
           <textarea name="message" rows="6" placeholder="Describe your project or issue..."></textarea>
         </label>
-        <button type="submit" class="btn-primary">Send My Request</button>
+          <div data-netlify-recaptcha="true"></div>
+              <button type="submit" class="btn-primary">Send My Request</button>
       </form>
     </div>
   </div>
