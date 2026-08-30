@@ -101,7 +101,7 @@ src="https://www.facebook.com/tr?id=2194207214734752&ev=PageView&noscript=1"/></
 <div id="success-msg" style="display:none;background:#d4edda;border:1px solid #c3e6cb;color:#155724;padding:16px;border-radius:6px;margin-bottom:16px;">
   <strong>Thanks! We received your request.</strong> We'll be in touch within a few hours.
 </div>
-            <form class="contact-form" name="contact" method="POST" netlify netlify-honeypot="bot-field" data-netlify-recaptcha="true">
+            <form class="contact-form" name="contact" method="POST" netlify netlify-honeypot="bot-field" data-netlify-recaptcha="true" enctype="multipart/form-data">
         <input type="hidden" name="form-name" value="contact">
         <p hidden><label>Don't fill this out: <input name="bot-field"></label></p>
         <div class="form-row">
@@ -113,7 +113,7 @@ src="https://www.facebook.com/tr?id=2194207214734752&ev=PageView&noscript=1"/></
           <textarea name="message" rows="6" placeholder="Describe your project or issue..."></textarea>
         </label>
           <div data-netlify-recaptcha="true"></div>
-              <button type="submit" class="btn-primary">Send My Request</button>
+              <label>Photos or Video (optional)</label><input type="file" name="photos" accept="image/*,video/*" multiple><button type="submit" class="btn-primary">Send My Request</button>
       </form>
     </div>
   </div>
