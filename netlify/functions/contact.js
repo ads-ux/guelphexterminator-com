@@ -42,6 +42,14 @@ exports.handler = async function(event) {
   const address = params.get('address') || '';
   const service = params.get('service') || 'Not specified';
   const message = params.get('message') || '';
+
+  // Blank-submission filter -- catches bots posting straight to this endpoint
+  // with no form fields (the hCaptcha gate above is disabled until
+  // HCAPTCHA_SECRET is set, so this is the only spam gate active right now).
+  if (!name.trim() && !phone.trim() && !email.trim()) {
+    return { statusCode: 302, headers: { Location: '/contact.html?submitted=1' } };
+  }
+
   const html = '<h2>New Quote Request Guelph Exterminator</h2><p><strong>Name:</strong> ' + name + '</p><p><strong>Phone:</strong> ' + phone + '</p><p><strong>Email:</strong> ' + email + '</p><p><strong>Address:</strong> ' + address + '</p><p><strong>Service:</strong> ' + service + '</p><p><strong>Message:</strong><br>' + message + '</p>';
   try {
     const res = await fetch('https://api.resend.com/emails', {
