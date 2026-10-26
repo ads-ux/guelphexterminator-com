@@ -8,3 +8,17 @@
 /mouse-exterminator-guelph.html   /mouse-exterminator-guelph   301!
 /privacy.html   /privacy   301!
 /wasp-nest-removal-guelph.html   /wasp-nest-removal-guelph   301!
+
+# 2026-10-26: area pages removed 2026-08-28 were 404ing (GSC "Not found (404)")
+/pest-control-cambridge.html   https://cambridgepestcontrol.ca/   301!
+/pest-control-cambridge        https://cambridgepestcontrol.ca/   301!
+/pest-control-kitchener.html   https://kitchenerpestcontrol.ca/   301!
+/pest-control-kitchener        https://kitchenerpestcontrol.ca/   301!
+/pest-control-elora.html       /   301!
+/pest-control-elora            /   301!
+/pest-control-erin.html        /   301!
+/pest-control-erin             /   301!
+/pest-control-fergus.html      /   301!
+/pest-control-fergus           /   301!
+/pest-control-rockwood.html    /   301!
+/pest-control-rockwood         /   301!
