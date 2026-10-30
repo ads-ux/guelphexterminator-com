@@ -2,14 +2,9 @@
 publish = "."
 
 [[redirects]]
-from = "/contact"
-to = "/contact.html"
-status = 301
-
-[[redirects]]
 from = "/services.html"
 to = "/#services"
-status = 302
+status = 301
 
 [[headers]]
 for = "/*"
