@@ -59,8 +59,8 @@ exports.handler = async function(event) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: 'leads@overhauled.ai',
-        to: ['ads@vrume.com'],
+        from: 'Mark Hurson <mark@weprovideleads.com>',
+        to: ['mark@weprovideleads.com'],
         reply_to: email || undefined,
         subject: 'New Quote Request from ' + name + ' Guelph Exterminator',
         html: html
